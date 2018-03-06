@@ -1,0 +1,34 @@
+<ion-content padding>
+    <ion-grid>
+        <ion-row text-center>
+            <ion-col>
+                <span class="device-drop-text">Device Drops</span>
+            </ion-col>
+        </ion-row>
+        <ion-row text-center>
+            <ion-col>
+                <div class="device-drop-btn {{master.activated}}" (click)="master.dropOrPickUp()">
+                    <span class="device-drop-text">{{ master.ID }}</span>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col *ngFor="let slave of slaves" col-6 text-center>
+                <div class="device-drop-btn {{slave.activated}}" (click)="slave.dropOrPickUp()">
+                    <span class="device-drop-text">{{ slave.ID }}</span>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+    <ion-grid>
+        <ion-row>
+            <ion-col text-center>
+                <div class="device-drop-btn" (click)="resetDevices()">
+                    <span class="device-drop-text">Reset All</span>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>
