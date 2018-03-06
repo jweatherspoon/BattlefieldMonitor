@@ -1,0 +1,8 @@
+{
+  "name": "Battlefield",
+  "app_id": "4d771fde",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
