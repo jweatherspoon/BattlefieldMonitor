@@ -17,6 +17,16 @@ export class ControlPage {
         for(let i = 1; i <= 6; i++) {
             this.slaves.push(new Device(i, this.geolocation, this.events));
         }
+
+        // Subscribe to sensor:tripped event
+        this.events.subscribe("sensor:tripped", function(eData) {
+            if(eData.id == "Master") {
+                this.master.trip();
+            } else {
+                let id = parseInt(eData.id);
+                this.slaves[id].trip();
+            }
+        });
     }
 
     resetDevices() {
@@ -55,6 +65,8 @@ class Device {
 
                 // Send an event to add the marker to the map 
                 this.events.publish("marker:add", this.marker);
+
+                this.trip();
             });
             
 
@@ -62,6 +74,17 @@ class Device {
             // remove from the map 
             this.activated = "";
             this.removeMarker();
+        }
+    }
+
+    trip() {
+        if(this.marker) {
+            this.marker.setAnimation(google.maps.Animation.BOUNCE);
+            // Stop bouncing after 15 seconds
+            let temp = this;
+            setTimeout( () => {
+                temp.marker.setAnimation(null);
+            }, 15000);
         }
     }
 
